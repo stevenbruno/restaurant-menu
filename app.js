@@ -9,6 +9,14 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+//Set up mongoose connection
+const db_key = process.env.DB_USER_KEY;
+var mongoose = require('mongoose');
+var mongoDB = `mongodb+srv://sbruno636:${db_key}@cluster0-tmnvz.mongodb.net/test?retryWrites=true&w=majority`;
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
