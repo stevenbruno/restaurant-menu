@@ -10,7 +10,7 @@ var ItemSchema = new Schema({
 });
 
 ItemSchema.virtual('url').get(function() {
-  return '/catalog/item/' + this._id;
+  return '/restaurant/item/' + this._id;
 });
 
 ItemSchema.virtual('price_usd').get(function() {

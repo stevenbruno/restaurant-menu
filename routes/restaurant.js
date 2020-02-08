@@ -7,7 +7,7 @@ var category_controller = require('../controllers/categoryController');
 
 /// category ROUTES ///
 
-// GET catalog home page.
+// GET restaurant home page.
 router.get('/', category_controller.index);
 
 // GET request for creating a category. NOTE This must come before routes that display categories (uses id).
