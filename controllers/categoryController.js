@@ -2,7 +2,7 @@ var Category = require('../models/category');
 
 // display home page
 exports.index = function(req, res) {
-  res.send('Restaurant Menu home page');
+  res.render('index', { title: 'Restaurant Inventory' });
 };
 
 // Display list of all Categories.
