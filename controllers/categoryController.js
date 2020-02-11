@@ -1,8 +1,27 @@
 var Category = require('../models/category');
+var Item = require('../models/item');
+
+var async = require('async');
 
 // display home page
 exports.index = function(req, res) {
-  res.render('index', { title: 'Restaurant Inventory' });
+  async.parallel(
+    {
+      category_count: function(callback) {
+        Category.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
+      },
+      item_count: function(callback) {
+        Item.countDocuments({}, callback);
+      }
+    },
+    function(err, results) {
+      res.render('index', {
+        title: 'Restaurant Inventory',
+        error: err,
+        data: results
+      });
+    }
+  );
 };
 
 // Display list of all Categories.
