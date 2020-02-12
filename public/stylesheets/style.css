@@ -387,3 +387,8 @@ a:visited {
 .topnav a {
   margin-right: 16px;
 }
+
+.topnav a:hover {
+  background: rgb(222, 241, 255);
+  color: #000;
+}
