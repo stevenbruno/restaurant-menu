@@ -25,8 +25,17 @@ exports.index = function(req, res) {
 };
 
 // Display list of all Categories.
-exports.category_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: Category list');
+exports.category_list = function(req, res, next) {
+  Category.find({}, 'name').exec(function(err, list_categories) {
+    if (err) {
+      return next(err);
+    }
+    //Successful, so render
+    res.render('categories', {
+      title: 'Categories',
+      category_list: list_categories
+    });
+  });
 };
 
 // Display category create form on GET.
