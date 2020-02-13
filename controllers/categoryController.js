@@ -10,8 +10,13 @@ exports.index = function(req, res, next) {
       if (err) {
         return next(err);
       }
-      //Successful, so render
-      res.render('index', { title: 'Restaurant Menu', item_list: list_items });
+      let categories = {};
+      list_items.forEach(item => {
+        item.category.name in categories
+          ? categories[item.category.name].push(item)
+          : (categories[item.category.name] = [item]);
+      });
+      res.send(categories);
     });
 };
 
