@@ -1,8 +1,17 @@
-var Author = require('../models/item');
+var Item = require('../models/item');
 
 // Display list of all items.
-exports.item_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: item list');
+exports.item_list = function(req, res, next) {
+  Item.find({}, 'name').exec(function(err, list_items) {
+    if (err) {
+      return next(err);
+    }
+    //Successful, so render
+    res.render('items', {
+      title: 'Items',
+      items_list: list_items
+    });
+  });
 };
 
 // Display detail page for a specific item.
