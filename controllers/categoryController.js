@@ -1,27 +1,18 @@
 var Category = require('../models/category');
 var Item = require('../models/item');
-
 var async = require('async');
 
 // display home page
-exports.index = function(req, res) {
-  async.parallel(
-    {
-      category_count: function(callback) {
-        Category.countDocuments({}, callback); // Pass an empty object as match condition to find all documents of this collection
-      },
-      item_count: function(callback) {
-        Item.countDocuments({}, callback);
+exports.index = function(req, res, next) {
+  Item.find()
+    .populate('category')
+    .exec(function(err, list_items) {
+      if (err) {
+        return next(err);
       }
-    },
-    function(err, results) {
-      res.render('index', {
-        title: 'Restaurant Inventory',
-        error: err,
-        data: results
-      });
-    }
-  );
+      //Successful, so render
+      res.render('index', { title: 'Restaurant Menu', item_list: list_items });
+    });
 };
 
 // Display list of all Categories.
